@@ -468,6 +468,13 @@ class CommentTest < ApplicationSystemTestCase
       # 2nd assertion: check if image uploaded
       assert_selector('#comment-preview-edit-' + fresh_comment_id_num + ' img', count: 1)
     end
+
+    test "#{page_type_string}: intermix recently active users with usernames that match query" do
+      visit get_path(page_type, nodes(node_name).path) 
+      page.find('#text-input-main').click.fill_in with: '@a'
+      # checks if recently active text which has a class of .rec-active is visible
+      assert_selector('#atwho-ground-text-input-main .atwho-view .atwho-view-ul small.rec-active')
+    end
   end
 
   # PART 3: TESTS for ALL PAGE TYPES!
